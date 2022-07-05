@@ -1,6 +1,6 @@
 module.exports = function(mongoose) {
-    var Schema = mongoose.Schema;
-    var BookingSchema = new Schema({
+    const Schema = mongoose.Schema;
+    const BookingSchema = new Schema({
         id_booking:  String,
         id_user: String,
         type_of_waste: String,
