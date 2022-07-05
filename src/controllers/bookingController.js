@@ -26,7 +26,7 @@ exports.getBookingByID = (req, res) => getBooking(req.params.id,
 	(err, b) => queryCallbackWithError(res, err, b, b == null));
 
 exports.createBooking = (req, res) => new Booking(req.body)
-	.save((err, b) => queryCallback(err, res, b));
+	.save((err, b) => queryCallback(res, err, b));
 
 exports.updateBooking = (req, res) => Booking.findOneAndUpdate({_id: req.params.id}, req.body, {new: true},
 	(err, b) => queryCallbackWithError(res, err, b, b == null));
