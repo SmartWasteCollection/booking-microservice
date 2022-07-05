@@ -6,25 +6,25 @@ function getBooking(id, callback){
 }
 
 exports.getAllBookings = function(req, res) {
-    Booking.find({}, function(err, movie) {
+    Booking.find({}, function(err, booking) {
         if (err)
             res.send(err);
-        res.json(movie);
+        res.json(booking);
     });
 };
 
 exports.getBookingByID = function(req, res) {
-    getBooking(req.params.id, function(err, movie) {
+    getBooking(req.params.id, function(err, booking) {
         if (err)
             res.send(err);
         else{
-            if(movie==null){
+            if(booking==null){
                 res.status(404).send({
                     description: 'Booking not found'
                 });
             }
             else{
-                res.json(movie);
+                res.json(booking);
             }
         }
     });
@@ -40,17 +40,17 @@ exports.createBooking = function(req, res) {
 };
 
 exports.updateBooking = function(req, res) {
-    Booking.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, movie) {
+    Booking.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, booking) {
         if (err)
             res.send(err);
         else{
-            if(movie==null){
+            if(booking==null){
                 res.status(404).send({
                     description: 'Booking not found'
                 });
             }
             else{
-                res.json(movie);
+                res.json(booking);
             }
         }
     });
