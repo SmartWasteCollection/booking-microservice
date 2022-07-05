@@ -5,74 +5,38 @@ function getBooking(id, callback){
     Booking.findById(id, callback);
 }
 
-exports.getAllBookings = function(req, res) {
-    Booking.find({}, function(err, booking) {
-        if (err)
-            res.send(err);
-        res.json(booking);
-    });
-};
+function queryCallbackWithError(res, err, booking, notFoundCond){
+    if (err)
+        res.send(err);
+    else{
+        if(notFoundCond)
+            res.status(404).send({ description: 'Booking not found'});
+        else
+            res.json(booking);
+    }
+}
 
-exports.getBookingByID = function(req, res) {
-    getBooking(req.params.id, function(err, booking) {
-        if (err)
-            res.send(err);
-        else{
-            if(booking==null){
-                res.status(404).send({
-                    description: 'Booking not found'
-                });
-            }
-            else{
-                res.json(booking);
-            }
-        }
-    });
-};
+function queryCallback(res, err, booking) {
+    queryCallbackWithError(res, err, booking, false)
+}
 
-exports.createBooking = function(req, res) {
-    var booking = new Booking(req.body);
-    booking.save(function(err, b) {
-        if (err)
-            res.send(err);
-        res.status(201).json(b);
-    });
-};
 
-exports.updateBooking = function(req, res) {
-    Booking.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, booking) {
-        if (err)
-            res.send(err);
-        else{
-            if(booking==null){
-                res.status(404).send({
-                    description: 'Booking not found'
-                });
-            }
-            else{
-                res.json(booking);
-            }
-        }
-    });
-};
+exports.getAllBookings = (req, res) => Booking.find({}, (err, b) => queryCallback(res, err, b));
 
-exports.deleteBooking = function(req, res) {
+exports.getBookingByID = (req, res) => getBooking(req.params.id,
+    (err, b) => queryCallbackWithError(res, err, b, b == null));
+
+exports.createBooking = (req, res) => new Booking(req.body)
+    .save((err, b) => queryCallback(err, res, b));
+
+exports.updateBooking = (req, res) => Booking.findOneAndUpdate({_id: req.params.id}, req.body, {new: true},
+    (err, b) => queryCallbackWithError(res, err, b, b == null));
+
+exports.deleteBooking = (req, res) => {
     getBooking(req.params.id, (err, b) => {
-        if(!err && b != null && b.status === 'PENDING'){
-            Booking.deleteOne({_id: req.params.id}, function(err, result) {
-                if (err)
-                    res.send(err);
-                else{
-                    if(result.deletedCount===0){
-                        res.status(404).send({
-                            description: 'Booking not found'
-                        });
-                    }
-                    else{
-                        res.json({ message: 'Task successfully deleted' });
-                    }
-                }
-            });
-        }
+        if(!err && b != null && b.status === 'PENDING')
+            Booking.deleteOne({_id: req.params.id},
+                (err, result) => queryCallbackWithError(res, err,
+                    { message: 'Task successfully deleted' }, result.deletedCount===0));
     });
 };
