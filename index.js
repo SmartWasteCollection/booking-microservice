@@ -15,7 +15,7 @@ app.use("/static", express.static(__dirname + "/public"));
 
 mongoose.connect(process.env.URI_MONGO_DB,
 	{useNewUrlParser: true, useUnifiedTopology: true},
-	(e) => e == null ? console.log("Connected to mongoDB") : e());
+	(e) => e == null ? console.log("Connected to mongoDB") : console.log("ERROR on connection: " + e));
 
 const routes = require("./src/routes/bookingRoutes");
 routes(app);
