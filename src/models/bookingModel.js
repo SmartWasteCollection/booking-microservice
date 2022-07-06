@@ -5,7 +5,10 @@ module.exports = function(mongoose, AutoIncrement) {
 			type: Number,
 			unique: true
 		},
-		id_user: String,
+		id_user: {
+			type: String,
+			required: true
+		},
 		type_of_waste: {
 			type: String,
 			enum: ["TWIGS", "WASTE OIL", "IRON", "ELECTRONICS", "CLOTHES", "OTHER"]
