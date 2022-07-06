@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-Booking = require("../models/bookingModel.js")(mongoose);
+const AutoIncrement = require("mongoose-sequence")(mongoose);
+Booking = require("../models/bookingModel.js")(mongoose, AutoIncrement);
 
 function getBooking(id, callback){
 	Booking.findById(id, callback);
