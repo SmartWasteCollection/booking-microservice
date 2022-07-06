@@ -4,7 +4,8 @@
   "description": "This repository contains the microservice that handles the generation and management of \"At Home\" collection bookings.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "devstart": "nodemon index.js",
+    "test": "mocha --timeout 10000 --exit",
     "prepare": "husky install"
   },
   "repository": {
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "chai": "4.3.6",
+    "chai-http": "^4.3.0",
     "eslint": "8.19.0",
     "husky": "8.0.1",
     "mocha": "10.0.0"

@@ -27,3 +27,5 @@ app.get("/", (req, res) => {
 app.use((req, res) => res.status(404).send({url: req.originalUrl + " not found"}));
 
 app.listen(PORT, () => console.log("Node API server started on port "+PORT));
+
+module.exports = app;
