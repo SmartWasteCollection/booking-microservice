@@ -7,7 +7,10 @@ module.exports = function(mongoose) {
 			type: String,
 			enum: ["TWIGS", "WASTE OIL", "IRON", "ELECTRONICS", "CLOTHES", "OTHER"]
 		},
-		datetime: Date,
+		datetime: {
+			type: Date,
+			default: Date.now
+		},
 		city: String,
 		province: String,
 		address: String,
