@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-Booking = require("../models/bookingModel.js")(mongoose);
+Booking = require("../models/bookingModel.js");
 
 function getBooking(id, callback){
 	Booking.findById(id, callback);
