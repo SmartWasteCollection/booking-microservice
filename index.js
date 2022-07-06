@@ -1,26 +1,29 @@
-var express = require('express');
-var app = express();
-var cors = require('cors')
-var path = require('path');
+const express = require("express");
+const app = express();
+const mongoose = require("mongoose");
+const cors = require("cors");
+const path = require("path");
+require("dotenv").config();
 
 global.appRoot = path.resolve(__dirname);
 
-var PORT = 3000;
+const PORT = process.env.SERVER_PORT | 3000;
 
-app.use(cors())
+app.use(cors());
 app.use(express.json());
-app.use('/static', express.static(__dirname + '/public'));
+app.use("/static", express.static(__dirname + "/public"));
 
+mongoose.connect(process.env.URI_MONGO_DB,
+	{useNewUrlParser: true, useUnifiedTopology: true},
+	(e) => e == null ? console.log("Connected to mongoDB") : e());
+
+const routes = require("./src/routes/bookingRoutes");
+routes(app);
 
 app.get("/", (req, res) => {
-    res.status(200).send("Hello!")
+	res.status(200).send("Hello!");
 });
 
-app.use(function(req, res) {
-    res.status(404).send({url: req.originalUrl + ' not found'})
+app.use((req, res) => res.status(404).send({url: req.originalUrl + " not found"}));
 
-});
-
-app.listen(PORT, function () {
-    console.log('Node API server started on port '+PORT);
-});
+app.listen(PORT, () => console.log("Node API server started on port "+PORT));
