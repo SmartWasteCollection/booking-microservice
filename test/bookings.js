@@ -69,6 +69,11 @@ function verifyResAndErr(err, res, type, statusCode = 200){
 	res.body.should.be.a(type);
 }
 
+function verifyErrorMessage(err, res){
+	verifyResAndErr(err, res, "object", 404);
+	res.body.should.have.property("_message").eql("Booking not found");
+}
+
 chai.use(chaiHttp);
 //Our parent block
 describe("Bookings Test", () => {
@@ -127,12 +132,20 @@ describe("Bookings Test", () => {
 				chai.request(server)
 					.get(baseurl+"/"+booking_id)
 					.end((err, res) => {
-						res.should.have.status(200);
-						res.body.should.be.a("object");
+						verifyResAndErr(err, res, "object");
 						verifyBookingObject(res.body, "3");
 						done();
 					});
 			});
+		});
+
+		it("it should return an error if the specified booking doesn't exist", (done) => {
+			chai.request(server)
+				.get(baseurl+"/"+"000000000000000000000000")
+				.end((err, res) => {
+					verifyErrorMessage(err, res);
+					done();
+				});
 		});
 	});
 
@@ -152,26 +165,40 @@ describe("Bookings Test", () => {
 					});
 			});
 		});
+		it("it should not update the specified booking if it doesn't exist", (done) => {
+			chai.request(server)
+				.put(baseurl+"/"+"000000000000000000000000")
+				.send(createNewBooking())
+				.end((err, res) => {
+					verifyErrorMessage(err, res);
+					done();
+				});
+		});
 	});
 
 	describe("DELETE on /bookings/:id", () => {
 		it("it should remove the booking with the specified id", (done) => {
 			doPostRequest(baseurl, createNewBooking("2"), (err, res) => {
-				chai.assert(err == null, "Creation failed " + err);
-				res.should.have.status(200);
-				res.body.should.be.a("object");
+				verifyResAndErr(err, res, "object");
 				const booking_id = res.body["_id"];
 				chai.request(server)
 					.delete(baseurl+"/"+booking_id)
 					.end((err, res) => {
-						res.should.have.status(200);
-						res.body.should.be.a("object");
-						res.body.should.have.property("message").eql("Task successfully deleted");
+						verifyResAndErr(err, res, "object");
+						res.body.should.have.property("_message").eql("Task successfully deleted");
 						doGetAllRequest(baseurl,(res) => res.body
 							.forEach((obj) => chai.assert(obj["_id"] !== booking_id)));
 						done();
 					});
 			});
+		});
+		it("it should not remove the specified booking if it doesn't exist", (done) => {
+			chai.request(server)
+				.put(baseurl+"/"+"000000000000000000000000")
+				.end((err, res) => {
+					verifyErrorMessage(err, res);
+					done();
+				});
 		});
 	});
 
