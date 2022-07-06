@@ -17,9 +17,12 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      URI_MONGO_DB: ${{ secrets.MONGO_CONNECTION_STRING }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
-      - run: echo 'ci active'
+      - run: npm install
+      - run: npm test
