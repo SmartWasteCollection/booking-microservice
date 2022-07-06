@@ -35,6 +35,15 @@ function doPostRequest(url, body, callback){
 		.end(callback);
 }
 
+function doGetAllRequest(baseurl, callback){
+	chai.request(server)
+		.get(baseurl)
+		.end((err, res) => {
+			verifyResAndErr(err, res, "array");
+			callback(res);
+		});
+}
+
 function verifyBookingObject(obj, id_user = DEFAULT_USER_ID, type_of_waste = DEFAULT_WASTE, status = DEFAULT_STATUS,
 	city = DEFAULT_CITY, province = DEFAULT_PROVINCE, address= DEFAULT_ADDRESS) {
 	obj.should.have.property("id_user").eql(id_user);
@@ -54,43 +63,46 @@ function verifyValidationError(err, res, done){
 	done();
 }
 
+function verifyResAndErr(err, res, type, statusCode = 200){
+	chai.assert(err == null);
+	res.should.have.status(statusCode);
+	res.body.should.be.a(type);
+}
+
 chai.use(chaiHttp);
 //Our parent block
 describe("Bookings Test", () => {
-
+	const baseurl = "/bookings";
 	before("remove elements from test collection", (done) => {
 		Booking.deleteMany({}, () => done());
 	});
 
-	after("close connecion" ,(done) => {
+	after("close connection" ,(done) => {
 		mongoose.connection.close();
 		done();
 	});
 
 	describe("POST on /bookings", () => {
-		const url = "/bookings";
 		it("it should create a new booking", (done) => {
-			doPostRequest(url, createNewBooking(), (err, res) => {
-				chai.assert(err == null);
-				res.should.have.status(200);
-				res.body.should.be.a("object");
+			doPostRequest(baseurl, createNewBooking(), (err, res) => {
+				verifyResAndErr(err, res, "object");
 				verifyBookingObject(res.body);
 				done();
 			});
 		});
 
 		it("it should not create a new booking if the type of waste is incorrect ", (done) => {
-			doPostRequest(url, createNewBooking(DEFAULT_USER_ID, "plastic"),
+			doPostRequest(baseurl, createNewBooking(DEFAULT_USER_ID, "plastic"),
 				(err, res) => verifyValidationError(err, res, done));
 		});
 
 		it("it should not create a new booking if the status is incorrect ", (done) => {
-			doPostRequest(url, createNewBooking(DEFAULT_USER_ID, DEFAULT_WASTE, "pending"),
+			doPostRequest(baseurl, createNewBooking(DEFAULT_USER_ID, DEFAULT_WASTE, "pending"),
 				(err, res) => verifyValidationError(err, res, done));
 		});
 
 		it("it should not create a new booking if the user_id is missing ", (done) => {
-			doPostRequest(url, createNewBooking(""),
+			doPostRequest(baseurl, createNewBooking(""),
 				(err, res) => verifyValidationError(err, res, done));
 		});
 
@@ -98,17 +110,70 @@ describe("Bookings Test", () => {
 
 	describe("GET on /bookings", () => {
 		it("it should GET all the bookings in the collection", (done) => {
-			chai.request(server)
-				.get("/bookings")
-				.end((err, res) => {
-					res.should.have.status(200);
-					res.body.should.be.a("array");
-					res.body.length.should.be.eql(1);
-					res.body[0].should.be.a("object");
-					verifyBookingObject(res.body[0]);
-					done();
-				});
+			doGetAllRequest(baseurl, (res) => {
+				res.body.length.should.be.eql(1);
+				res.body[0].should.be.a("object");
+				verifyBookingObject(res.body[0]);
+				done();
+			});
 		});
 	});
+
+	describe("GET on /bookings/:id", () => {
+		it("it should GET the booking with the specified id", (done) => {
+			doPostRequest(baseurl, createNewBooking("3"), (err, res) => {
+				verifyResAndErr(err, res, "object");
+				const booking_id = res.body["_id"];
+				chai.request(server)
+					.get(baseurl+"/"+booking_id)
+					.end((err, res) => {
+						res.should.have.status(200);
+						res.body.should.be.a("object");
+						verifyBookingObject(res.body, "3");
+						done();
+					});
+			});
+		});
+	});
+
+	describe("PUT on /bookings/:id", () => {
+		it("it should update the booking with the specified id", (done) => {
+			doPostRequest(baseurl, createNewBooking("2"), (err, res) => {
+				verifyResAndErr(err, res, "object");
+				const booking_id = res.body["_id"];
+				chai.request(server)
+					.put(baseurl+"/"+booking_id)
+					.send(createNewBooking("2", "WASTE OIL"))
+					.end((err, res) => {
+						res.should.have.status(200);
+						res.body.should.be.a("object");
+						verifyBookingObject(res.body, "2", "WASTE OIL");
+						done();
+					});
+			});
+		});
+	});
+
+	describe("DELETE on /bookings/:id", () => {
+		it("it should remove the booking with the specified id", (done) => {
+			doPostRequest(baseurl, createNewBooking("2"), (err, res) => {
+				chai.assert(err == null, "Creation failed " + err);
+				res.should.have.status(200);
+				res.body.should.be.a("object");
+				const booking_id = res.body["_id"];
+				chai.request(server)
+					.delete(baseurl+"/"+booking_id)
+					.end((err, res) => {
+						res.should.have.status(200);
+						res.body.should.be.a("object");
+						res.body.should.have.property("message").eql("Task successfully deleted");
+						doGetAllRequest(baseurl,(res) => res.body
+							.forEach((obj) => chai.assert(obj["_id"] !== booking_id)));
+						done();
+					});
+			});
+		});
+	});
+
 
 });
