@@ -19,5 +19,8 @@ build/Release
 .env
 .env.test
 
+.nyc_output/
+coverage/
+
 .idea
 .vscode

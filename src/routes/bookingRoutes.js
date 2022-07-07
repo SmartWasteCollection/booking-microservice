@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = function (app) {
 	const bookingController = require("../controllers/bookingController");
 
 	app.route("/bookings")

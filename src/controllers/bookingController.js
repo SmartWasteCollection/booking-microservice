@@ -1,23 +1,21 @@
-const mongoose = require("mongoose");
-const AutoIncrement = require("mongoose-sequence")(mongoose);
-Booking = require("../models/bookingModel.js")(mongoose, AutoIncrement);
+Booking = require("../models/bookingModel.js");
 
-function getBooking(id, callback){
+function getBooking (id, callback){
 	Booking.findById(id, callback);
 }
 
-function queryCallbackWithError(res, err, booking, notFoundCond){
+function queryCallbackWithError (res, err, booking, notFoundCond){
 	if (err)
 		res.send(err);
 	else {
 		if (notFoundCond)
-			res.status(404).send({ description: "Booking not found"});
+			res.status(404).send({ _message: "Booking not found" });
 		else
 			res.json(booking);
 	}
 }
 
-function queryCallback(res, err, booking) {
+function queryCallback (res, err, booking) {
 	queryCallbackWithError(res, err, booking, false);
 }
 
@@ -37,6 +35,6 @@ exports.deleteBooking = (req, res) => {
 		if (!err && b != null && b.status === "PENDING")
 			Booking.deleteOne({_id: req.params.id},
 				(err, result) => queryCallbackWithError(res, err,
-					{ message: "Task successfully deleted" }, result.deletedCount===0));
+					{ _message: "Task successfully deleted" }, result.deletedCount===0));
 	});
 };
