@@ -20,5 +20,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
-      - run: npm install
-      - run: npm test
+      - name: Install npm
+        run: npm install
+      - name: Run coverage
+        run: npm run coverage
+      - name: Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests

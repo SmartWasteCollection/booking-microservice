@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "devstart": "nodemon index.js",
-    "test": "mocha --timeout 10000 --exit",
-    "prepare": "husky install"
+    "test": "nyc --reporter=html --reporter=text mocha --timeout 10000 --exit",
+    "prepare": "husky install",
+    "coverage": "nyc --reporter=lcov mocha --timeout 10000 --exit && codecov"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "chai-http": "^4.3.0",
     "eslint": "8.19.0",
     "husky": "8.0.1",
-    "mocha": "10.0.0"
+    "mocha": "10.0.0",
+    "nyc": "^15.1.0"
   }
 }
