@@ -7,7 +7,8 @@
     "devstart": "nodemon index.js",
     "test": "mocha --timeout 10000 --exit",
     "prepare": "husky install",
-    "coverage": "nyc --reporter=lcov mocha --timeout 10000 --exit && codecov"
+    "coverage": "nyc --reporter=lcov mocha --timeout 10000 --exit && codecov",
+    "linter": "npx eslint src/*/*.js test/*.js index.js"
   },
   "repository": {
     "type": "git",
