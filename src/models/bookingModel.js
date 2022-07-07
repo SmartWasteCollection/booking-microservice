@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const BookingSchema = new Schema({
-	id_user: {
+	userId: {
 		type: String,
 		required: true
 	},
-	type_of_waste: {
-		type: String,
-		enum: ["TWIGS", "WASTE OIL", "IRON", "ELECTRONICS", "CLOTHES", "OTHER"]
+	typeOfWaste: {
+		wasteName:{
+			type: String,
+			enum: ["TWIGS", "WASTE OIL", "IRON", "ELECTRONICS", "CLOTHES", "OTHER"]
+		}
 	},
 	datetime: {
 		type: Date,

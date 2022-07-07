@@ -16,11 +16,13 @@ const DEFAULT_PROVINCE = "FC";
 const DEFAULT_STATUS = "PENDING";
 
 
-function createNewBooking (id_user = DEFAULT_USER_ID, type_of_waste = DEFAULT_WASTE, status = DEFAULT_STATUS,
+function createNewBooking (userId = DEFAULT_USER_ID, typeOfWaste = DEFAULT_WASTE, status = DEFAULT_STATUS,
 	city = DEFAULT_CITY, province = DEFAULT_PROVINCE, address= DEFAULT_ADDRESS){
 	return {
-		id_user : id_user,
-		type_of_waste : type_of_waste,
+		userId : userId,
+		typeOfWaste : {
+			wasteName: typeOfWaste
+		},
 		city : city,
 		province : province,
 		address : address,
@@ -44,10 +46,11 @@ function doGetAllRequest (baseurl, callback){
 		});
 }
 
-function verifyBookingObject (obj, id_user = DEFAULT_USER_ID, type_of_waste = DEFAULT_WASTE, status = DEFAULT_STATUS,
+function verifyBookingObject (obj, userId = DEFAULT_USER_ID, typeOfWaste = DEFAULT_WASTE, status = DEFAULT_STATUS,
 	city = DEFAULT_CITY, province = DEFAULT_PROVINCE, address= DEFAULT_ADDRESS) {
-	obj.should.have.property("id_user").eql(id_user);
-	obj.should.have.property("type_of_waste").eql(type_of_waste);
+	obj.should.have.property("userId").eql(userId);
+	obj.should.have.property("typeOfWaste");
+	obj["typeOfWaste"].should.have.property("wasteName").eql(typeOfWaste);
 	obj.should.have.property("city").eql(city);
 	obj.should.have.property("province").eql(province);
 	obj.should.have.property("address").eql(address);
