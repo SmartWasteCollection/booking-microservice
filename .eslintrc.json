@@ -25,6 +25,8 @@
             "error",
             "always"
         ],
-        "no-undef": "off"
+        "no-undef": "off",
+        "keyword-spacing": "error",
+        "space-before-function-paren": "error"
     }
 }

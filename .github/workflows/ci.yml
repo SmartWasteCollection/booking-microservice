@@ -3,9 +3,6 @@ name: Test
 on:
   workflow_dispatch:
   push:
-    branches:
-      - develop
-      - main
     paths-ignore:
       - 'README.md'
       - 'LICENSE'
@@ -13,13 +10,24 @@ on:
     branches:
       - develop
       - main
-
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      URI_MONGO_DB: ${{ secrets.MONGO_CONNECTION_STRING }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
-      - run: echo 'ci active'
+      - name: Install npm
+        run: npm install
+      - name: Install Codecov
+        run: npm install -g codecov
+      - name: Run coverage
+        run: npm run coverage
+      - name: Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests
