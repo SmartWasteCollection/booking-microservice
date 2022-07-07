@@ -1,0 +1,44 @@
+name: Delivery and Deployment
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'CHANGELOG.md'
+      - 'LICENSE'
+      - 'README.md'
+
+jobs:
+  build-and-test:
+    uses: ./.github/workflows/ci.yml
+    secrets: inherit
+  delivery:
+    needs:
+      - build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Semantic Versioning
+        uses: anitvam/conventionalcommit-semantic-releasing@v0.3.6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get tag
+        id: getTag
+        run: echo "::set-output name=tagVersion::$(git describe --tags --abbrev=0)"
+      - name: Container Registry Authentication
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and Push Docker Image
+        run: |
+          docker build . --tag ghcr.io/smartwastecollection/booking-microservice:${{ steps.getTag.outputs.tagVersion }}
+          docker push ghcr.io/smartwastecollection/booking-microservice:${{ steps.getTag.outputs.tagVersion }}
