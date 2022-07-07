@@ -22,6 +22,8 @@ jobs:
           node-version: '16.x'
       - name: Install npm
         run: npm install
+      - name: Install Codecov
+        run: npm install -g codecov
       - name: Run coverage
         run: npm run coverage
       - name: Codecov
