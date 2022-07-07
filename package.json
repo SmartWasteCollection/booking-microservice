@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "devstart": "nodemon index.js",
-    "test": "nyc --reporter=html --reporter=text mocha --timeout 10000 --exit",
+    "test": "mocha --timeout 10000 --exit",
     "prepare": "husky install",
     "coverage": "nyc --reporter=lcov mocha --timeout 10000 --exit && codecov"
   },

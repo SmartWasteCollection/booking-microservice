@@ -16,7 +16,7 @@ const DEFAULT_PROVINCE = "FC";
 const DEFAULT_STATUS = "PENDING";
 
 
-function createNewBooking(id_user = DEFAULT_USER_ID, type_of_waste = DEFAULT_WASTE, status = DEFAULT_STATUS,
+function createNewBooking (id_user = DEFAULT_USER_ID, type_of_waste = DEFAULT_WASTE, status = DEFAULT_STATUS,
 	city = DEFAULT_CITY, province = DEFAULT_PROVINCE, address= DEFAULT_ADDRESS){
 	return {
 		id_user : id_user,
@@ -28,14 +28,14 @@ function createNewBooking(id_user = DEFAULT_USER_ID, type_of_waste = DEFAULT_WAS
 	};
 }
 
-function doPostRequest(url, body, callback){
+function doPostRequest (url, body, callback){
 	chai.request(server)
 		.post(url)
 		.send(body)
 		.end(callback);
 }
 
-function doGetAllRequest(baseurl, callback){
+function doGetAllRequest (baseurl, callback){
 	chai.request(server)
 		.get(baseurl)
 		.end((err, res) => {
@@ -44,7 +44,7 @@ function doGetAllRequest(baseurl, callback){
 		});
 }
 
-function verifyBookingObject(obj, id_user = DEFAULT_USER_ID, type_of_waste = DEFAULT_WASTE, status = DEFAULT_STATUS,
+function verifyBookingObject (obj, id_user = DEFAULT_USER_ID, type_of_waste = DEFAULT_WASTE, status = DEFAULT_STATUS,
 	city = DEFAULT_CITY, province = DEFAULT_PROVINCE, address= DEFAULT_ADDRESS) {
 	obj.should.have.property("id_user").eql(id_user);
 	obj.should.have.property("type_of_waste").eql(type_of_waste);
@@ -55,21 +55,19 @@ function verifyBookingObject(obj, id_user = DEFAULT_USER_ID, type_of_waste = DEF
 	obj.should.have.property("status").eql(status);
 }
 
-function verifyValidationError(err, res, done){
-	chai.assert(err == null);
-	res.should.have.status(200);
-	res.body.should.be.a("object");
+function verifyValidationError (err, res, done){
+	verifyResAndErr(err, res, "object");
 	res.body.should.have.property("_message").eql("Booking validation failed");
 	done();
 }
 
-function verifyResAndErr(err, res, type, statusCode = 200){
+function verifyResAndErr (err, res, type, statusCode = 200){
 	chai.assert(err == null);
 	res.should.have.status(statusCode);
 	res.body.should.be.a(type);
 }
 
-function verifyErrorMessage(err, res){
+function verifyErrorMessage (err, res){
 	verifyResAndErr(err, res, "object", 404);
 	res.body.should.have.property("_message").eql("Booking not found");
 }

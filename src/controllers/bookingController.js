@@ -1,10 +1,10 @@
 Booking = require("../models/bookingModel.js");
 
-function getBooking(id, callback){
+function getBooking (id, callback){
 	Booking.findById(id, callback);
 }
 
-function queryCallbackWithError(res, err, booking, notFoundCond){
+function queryCallbackWithError (res, err, booking, notFoundCond){
 	if (err)
 		res.send(err);
 	else {
@@ -15,7 +15,7 @@ function queryCallbackWithError(res, err, booking, notFoundCond){
 	}
 }
 
-function queryCallback(res, err, booking) {
+function queryCallback (res, err, booking) {
 	queryCallbackWithError(res, err, booking, false);
 }
 
