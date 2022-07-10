@@ -2,13 +2,14 @@
   "name": "booking-microservice",
   "version": "1.0.0",
   "description": "This repository contains the microservice that handles the generation and management of \"At Home\" collection bookings.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "devstart": "nodemon index.js",
+    "devstart": "nodemon src/index.js",
+    "start": "node src/index.js",
     "test": "mocha --timeout 10000 --exit",
     "prepare": "husky install",
     "coverage": "nyc --reporter=lcov mocha --timeout 10000 --exit && codecov",
-    "linter": "npx eslint src/*/*.js test/*.js index.js"
+    "linter": "npx eslint src/*/*.js test/*.js src/index.js"
   },
   "repository": {
     "type": "git",

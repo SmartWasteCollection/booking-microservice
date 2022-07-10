@@ -1,23 +1,19 @@
 FROM node:16
 
-ENV WORKINGDIR=/root/server
-
 # Create app directory
-WORKDIR ${WORKINGDIR}
-
-RUN mkdir -p ${WORKINGDIR} && chmod 666 ${WORKINGDIR}
+WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY package*.json ${WORKINGDIR}/
-
-RUN apt-get -y update && apt-get -y install apt-utils && apt-get -y clean
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
 
 RUN npm install
 
 # Bundle app source
-COPY . ${WORKINGDIR}/
+COPY . .
 
 RUN ls
 
 EXPOSE 3000
-CMD node -r dotenv/config ./index.js
+CMD [ "node", "./src/index.js" ]
