@@ -50,5 +50,5 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and Push Docker Image
         run: |
-          docker build --build-arg mongo_db_path=${{ secrets.CONTAINER_MONGO_DB_URI }} --tag ghcr.io/smartwastecollection/booking-microservice:${{ steps.getTag.outputs.tagVersion }} .
+          docker build . --build-arg mongo_db_path="${{ secrets.CONTAINER_MONGO_DB_URI }}" --tag ghcr.io/smartwastecollection/booking-microservice:${{ steps.getTag.outputs.tagVersion }}
           docker push ghcr.io/smartwastecollection/booking-microservice:${{ steps.getTag.outputs.tagVersion }}
