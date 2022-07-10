@@ -1,3 +1,10 @@
+## [0.1.7](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.1.6...v0.1.7) (2022-07-10)
+
+
+### Bug Fixes
+
+* change cmd in entrypoint in dockerfile ([1c45f89](https://github.com/SmartWasteCollection/booking-microservice/commit/1c45f89033fd2bf1abf930a3b8c78e96eff3697e))
+
 ## [0.1.6](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.1.5...v0.1.6) (2022-07-10)
 
 
