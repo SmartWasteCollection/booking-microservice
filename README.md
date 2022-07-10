@@ -4,3 +4,17 @@
 ![GitHub](https://img.shields.io/github/license/SmartWasteCollection/booking-microservice)
 
 This repository contains the microservice that handles the generation and management of "At Home" collection bookings.
+
+### Usage
+To use this microservice you can download the latest release and run it with
+```
+npm install
+
+npm start
+```
+
+Otherwise, you can download the latest package and run it with the command
+```
+docker run -p 3000:3000 ghcr.io/smartwastecollection/booking-microservice:<latest-tag>
+```
+
