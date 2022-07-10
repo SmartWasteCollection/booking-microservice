@@ -1,7 +1,7 @@
 FROM node:16
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /bookig-microservice
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
@@ -16,4 +16,4 @@ COPY . .
 RUN ls
 
 EXPOSE 3000
-CMD [ "node", "./src/index.js" ]
+CMD [ "npm", "start" ]
