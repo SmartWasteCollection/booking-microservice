@@ -1,15 +1,17 @@
-FROM node:16
+FROM node:lts-alpine@sha256:b2da3316acdc2bec442190a1fe10dc094e7ba4121d029cb32075ff59bb27390a
 
-WORKDIR /bookig-microservice
+RUN apk add dumb-init
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y nodejs npm
+ENV NODE_ENV production
 
-COPY package*.json ./
+WORKDIR /usr/src/app
 
-RUN npm install
+COPY --chown=node:node . .
 
-COPY . .
+RUN npm ci --only=production
 
 EXPOSE 3000
 
-ENTRYPOINT node ./src/index.js
+USER node
+
+CMD ["dumb-init", "node", "./src/index.js"]
