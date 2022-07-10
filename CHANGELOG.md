@@ -1,3 +1,10 @@
+## [0.1.8](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.1.7...v0.1.8) (2022-07-10)
+
+
+### Bug Fixes
+
+* update Dockerfile to update npm ([9ba5d36](https://github.com/SmartWasteCollection/booking-microservice/commit/9ba5d367911596d576c92aed6e99fdd16bd4d997))
+
 ## [0.1.7](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.1.6...v0.1.7) (2022-07-10)
 
 
