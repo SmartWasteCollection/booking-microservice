@@ -8,7 +8,6 @@ RUN npm install
 
 COPY . .
 
-RUN ls
-
 EXPOSE 3000
-CMD npm run
+
+CMD node ./src/index.js
