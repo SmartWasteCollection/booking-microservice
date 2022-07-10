@@ -17,7 +17,7 @@ mongoose.connect(process.env.URI_MONGO_DB,
 	{useNewUrlParser: true, useUnifiedTopology: true},
 	(e) => e == null ? console.log("Connected to mongoDB") : console.log("ERROR on connection: " + e));
 
-const routes = require("./src/routes/bookingRoutes");
+const routes = require("./routes/bookingRoutes");
 routes(app);
 
 app.get("/", (req, res) => {

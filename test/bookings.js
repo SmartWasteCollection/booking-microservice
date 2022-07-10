@@ -4,7 +4,7 @@ let Booking = require("../src/models/bookingModel");
 //Require the dev-dependencies
 let chai = require("chai");
 let chaiHttp = require("chai-http");
-let server = require("../index.js");
+let server = require("../src");
 // eslint-disable-next-line no-unused-vars
 let should = chai.should();
 
