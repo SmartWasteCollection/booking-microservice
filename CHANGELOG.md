@@ -1,3 +1,10 @@
+## [0.1.11](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.1.10...v0.1.11) (2022-07-10)
+
+
+### Bug Fixes
+
+* remove cmd command in dockefile ([aee551e](https://github.com/SmartWasteCollection/booking-microservice/commit/aee551eab4206352b4fea72deed3192db61f8d4f))
+
 ## [0.1.10](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.1.9...v0.1.10) (2022-07-10)
 
 
