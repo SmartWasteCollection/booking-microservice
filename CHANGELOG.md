@@ -1,3 +1,10 @@
+## [0.1.6](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.1.5...v0.1.6) (2022-07-10)
+
+
+### Bug Fixes
+
+* restore dockerfile ([8ad2949](https://github.com/SmartWasteCollection/booking-microservice/commit/8ad2949dbc862081727b7cc85e0c85d27767f463))
+
 ## [0.1.5](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.1.4...v0.1.5) (2022-07-10)
 
 
