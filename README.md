@@ -1,7 +1,6 @@
 # booking-microservice
 [![codecov](https://codecov.io/gh/SmartWasteCollection/booking-microservice/branch/main/graph/badge.svg?token=956ZL89Z2E)](https://codecov.io/gh/SmartWasteCollection/booking-microservice)
 [![GitHub](https://img.shields.io/github/license/SmartWasteCollection/booking-microservice)](/LICENSE)
-[![Continuous Integration](https://github.com/SmartWasteCollection/booking-microservice/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/SmartWasteCollection/booking-microservice/actions/workflows/ci.yml)
 [![Continuous Integration](https://github.com/SmartWasteCollection/booking-microservice/actions/workflows/cd.yml/badge.svg?event=push)](https://github.com/SmartWasteCollection/booking-microservice/actions/workflows/cd.yml)
 [![GitHub issues](https://img.shields.io/github/issues-raw/SmartWasteCollection/booking-microservice?style=plastic)](https://github.com/SmartWasteCollection/booking-microservice/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/SmartWasteCollection/booking-microservice?style=plastic)](https://github.com/SmartWasteCollection/booking-microservice/pulls)
