@@ -15,6 +15,9 @@ npm start
 
 Otherwise, you can download the latest package and run it with the command
 ```
-docker run -p 3000:3000 ghcr.io/smartwastecollection/booking-microservice:<latest-tag>
+docker run -p 3000:3000 --env-file <your-env-file> ghcr.io/smartwastecollection/booking-microservice:<latest-tag>
 ```
-
+Your ".env" file must specify the MongoDB connection string in the following environment variable:
+```
+URI_MONGO_DB
+```
