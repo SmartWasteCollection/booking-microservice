@@ -28,10 +28,13 @@ exports.getAllBookings = (req, res) => Booking.find({}, (err, b) => queryCallbac
 exports.getBookingByID = (req, res) => getBooking(req.params.id,
 	(err, b) => queryCallbackWithError(res, err, b, b == null));
 
+exports.getBookingsByUser = (req, res) => Booking.find({userId:req.params.userId},
+	(err, bookings) => queryCallbackWithError(res, err, bookings, bookings == null));
+
 exports.createBooking = (req, res) => new Booking(req.body)
 	.save((err, b) => queryCallback(res, err, b));
 
-exports.updateBooking = (req, res) => Booking.findOneAndUpdate({_id: req.params.id}, req.body, {new: true},
+exports.updateBooking = (req, res) => Booking.findByIdAndUpdate(req.params.id, req.body, {new: true},
 	(err, b) => {
 		if (!err && b !== null){
 			observers.forEach(o => o(b));
