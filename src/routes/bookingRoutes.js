@@ -7,4 +7,7 @@ module.exports = function (app, bookingController) {
 		.get(bookingController.getBookingByID)
 		.put(bookingController.updateBooking)
 		.delete(bookingController.deleteBooking);
+
+	app.route("/bookings/user/:userId")
+		.get(bookingController.getBookingsByUser);
 };
