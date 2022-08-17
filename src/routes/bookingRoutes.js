@@ -1,6 +1,4 @@
-module.exports = function (app) {
-	const bookingController = require("../controllers/bookingController");
-
+module.exports = function (app, bookingController) {
 	app.route("/bookings")
 		.get(bookingController.getAllBookings)
 		.post(bookingController.createBooking);
