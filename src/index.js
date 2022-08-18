@@ -45,11 +45,11 @@ const {notify} = require("./controllers/notificationController")(io);
 
 bookingController.addObserver(notify);
 io.use((socket, next) => {
-	const sessionID = socket.handshake.auth.sessionID;
-	if (sessionID) {
-		const session = sessionStore.findSession(sessionID);
+	const sessionId = socket.handshake.auth.sessionId;
+	if (sessionId) {
+		const session = sessionStore.findSession(sessionId);
 		if (session) {
-			socket.sessionID = sessionID;
+			socket.sessionId = sessionId;
 			socket.userId = session.userId;
 			return next();
 		}
@@ -59,8 +59,8 @@ io.use((socket, next) => {
 		return next(new Error("invalid userId"));
 	}
 	// create new session
-	socket.sessionID = randomId();
-	console.log(socket.sessionID);
+	socket.sessionId = randomId();
+	console.log(socket.sessionId);
 	socket.userId = userId;
 	next();
 });
@@ -68,13 +68,13 @@ io.use((socket, next) => {
 io.on("connection", (socket) => {
 	console.log("Socket connected", socket.userId);
 	socket.emit("session", {
-		sessionID: socket.sessionID,
+		sessionId: socket.sessionId,
 		userId: socket.userId
 	});
 	socket.join(socket.userId);
 	socket.on("disconnect", () => {
-		sessionStore.saveSession(socket.sessionID, {
-			sessionID: socket.sessionID,
+		sessionStore.saveSession(socket.sessionId, {
+			sessionId: socket.sessionId,
 			userId: socket.userId
 		});
 	});
