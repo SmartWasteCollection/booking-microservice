@@ -7,6 +7,7 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 const randomId = require("random-id");
 const sessionStore = require("./storage/sessionStore");
+const notificationStore = require("./storage/notificationStore");
 const bookingController = require("./controllers/bookingController");
 
 require("dotenv").config();
@@ -41,7 +42,7 @@ const io = new Server(httpServer,  {
 		methods: ["GET", "POST"]
 	}});
 
-const {notify} = require("./controllers/notificationController")(io);
+const {notify} = require("./controllers/notificationController")(io, notificationStore);
 
 bookingController.addObserver(notify);
 io.use((socket, next) => {
@@ -60,7 +61,6 @@ io.use((socket, next) => {
 	}
 	// create new session
 	socket.sessionId = randomId();
-	console.log(socket.sessionId);
 	socket.userId = userId;
 	next();
 });
@@ -72,10 +72,11 @@ io.on("connection", (socket) => {
 		userId: socket.userId
 	});
 	socket.join(socket.userId);
+	notificationStore.notifyUser(socket.userId, notify);
 	socket.on("disconnect", () => {
 		sessionStore.saveSession(socket.sessionId, {
 			sessionId: socket.sessionId,
-			userId: socket.userId
+			userId: socket.userId,
 		});
 	});
 });

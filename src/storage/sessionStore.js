@@ -2,9 +2,10 @@ const Session = require("../models/SessionModel.js");
 class SessionStore {
 	constructor () {
 		this.sessions = new Map();
-		Session.find({}, (error, s) => s.forEach(i => this.sessions.set(i.sessionId, i)));
-		console.log("Loaded Sessions: ");
-		this.sessions.forEach((k,v) => console.log(k +"  "+v));
+		Session.find({}, (error, s) => {
+			s.forEach(i => this.sessions.set(i.sessionId, i));
+			console.log("Loaded Session: "+ this.sessions.size);
+		});
 	}
 
 	findSession (id) {
@@ -14,7 +15,10 @@ class SessionStore {
 	saveSession (id, session) {
 		console.log("saving: " + id + " as " + session.userId);
 		this.sessions.set(id, session);
-		new Session(session).save((err, b) => console.log("saved on db: " + b + "error: " + err));
+		new Session(session).save((err, b) => {
+			if (err) throw new Error("An error occurs trying to save session. " + err);
+			if (b != null) console.log("Session saved successfully");
+		});
 	}
 
 	findAllSessions () {
