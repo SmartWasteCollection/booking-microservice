@@ -55,7 +55,7 @@ io.use((socket, next) => {
 			return next();
 		}
 	}
-	const userId = socket.handshake.auth.userId._value;
+	const userId = socket.handshake.auth.userId;
 	if (!userId) {
 		return next(new Error("invalid userId"));
 	}
