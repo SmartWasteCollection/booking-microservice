@@ -26,14 +26,13 @@ mongoose.connect(process.env.URI_MONGO_DB,
 
 const routes = require("./routes/bookingRoutes");
 routes(app, bookingController);
-
 app.get("/", (req, res) => {
 	res.status(200).send("Hello!");
 });
-
 app.use((req, res) => res.status(404).send({url: req.originalUrl + " not found"}));
 
 const httpServer = createServer(app);
+
 httpServer.listen(PORT, () => console.log("Node API server started on port "+PORT) );
 
 const io = new Server(httpServer,  {
@@ -42,7 +41,7 @@ const io = new Server(httpServer,  {
 		methods: ["GET", "POST"]
 	}});
 
-const {notify} = require("./controllers/notificationController")(io, notificationStore);
+const {notify, send, deleteNotification, markAsRead} = require("./controllers/notificationController")(io, notificationStore);
 
 bookingController.addObserver(notify);
 io.use((socket, next) => {
@@ -72,7 +71,9 @@ io.on("connection", (socket) => {
 		userId: socket.userId
 	});
 	socket.join(socket.userId);
-	notificationStore.notifyUser(socket.userId, notify);
+	notificationStore.notifyUser(socket.userId, send);
+	socket.on("markAsRead", (msg) => markAsRead(msg.id, msg.notification));
+	socket.on("delete", (id) => deleteNotification(id));
 	socket.on("disconnect", () => {
 		sessionStore.saveSession(socket.sessionId, {
 			sessionId: socket.sessionId,

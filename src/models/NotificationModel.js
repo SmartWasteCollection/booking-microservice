@@ -9,6 +9,10 @@ const NotificationSchema = new Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Booking",
 		required: true
+	},
+	isRead: {
+		type:Boolean,
+		default:false
 	}
 });
 module.exports = mongoose.model("Notification", NotificationSchema);
