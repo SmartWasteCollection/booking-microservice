@@ -1,3 +1,12 @@
+# [0.2.0](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.1.11...v0.2.0) (2022-08-31)
+
+
+### Features
+
+* add db to save notification when users are offline ([94f91da](https://github.com/SmartWasteCollection/booking-microservice/commit/94f91da2082b1066e49aee3df4dd5aa52c935c80))
+* add first notification system ([6a4ff6c](https://github.com/SmartWasteCollection/booking-microservice/commit/6a4ff6cf08cd8efd5521cc2fe5e74c197e35fa42))
+* add management of user notification ([d092481](https://github.com/SmartWasteCollection/booking-microservice/commit/d0924816bfef57adc079d22d655e702fd2f05f3c))
+
 ## [0.1.11](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.1.10...v0.1.11) (2022-07-10)
 
 
