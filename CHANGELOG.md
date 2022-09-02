@@ -1,3 +1,10 @@
+## [0.2.1](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.2.0...v0.2.1) (2022-09-02)
+
+
+### Bug Fixes
+
+* downgrade eslint to resolve internal bug ([2e644cd](https://github.com/SmartWasteCollection/booking-microservice/commit/2e644cd533bc0369472a4a95392b903f4e84b726))
+
 # [0.2.0](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.1.11...v0.2.0) (2022-08-31)
 
 
