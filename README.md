@@ -8,6 +8,9 @@
 
 This repository contains the microservice that handles the generation and management of "At Home" collection bookings.
 
+### API
+Detailed description about the API [here](https://app.swaggerhub.com/apis/MARTASPADONI2/BookingsAPI/1.0.0)
+
 ### Usage
 To use this microservice you can download the latest release and run it with
 ```
