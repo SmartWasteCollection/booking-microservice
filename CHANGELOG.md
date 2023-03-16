@@ -1,3 +1,10 @@
+## [0.2.3](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.2.2...v0.2.3) (2023-03-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency express to v4.18.2 ([ce9a7ec](https://github.com/SmartWasteCollection/booking-microservice/commit/ce9a7ecb5965de89c06d56e96a04cb331dcde17b))
+
 ## [0.2.2](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.2.1...v0.2.2) (2023-03-15)
 
 
