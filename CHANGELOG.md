@@ -1,3 +1,10 @@
+## [0.2.6](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.2.5...v0.2.6) (2023-03-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency socket.io to v4.5.4 ([6bb4493](https://github.com/SmartWasteCollection/booking-microservice/commit/6bb4493f07aa050f1bafd397a548ace4be9239b0))
+
 ## [0.2.5](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.2.4...v0.2.5) (2023-03-16)
 
 
