@@ -1,3 +1,10 @@
+## [0.2.10](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.2.9...v0.2.10) (2023-03-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency nodemon to v2.0.22 ([c1f171c](https://github.com/SmartWasteCollection/booking-microservice/commit/c1f171ce3b79dad81c4a1a2f1f4ecadd1a12ed18))
+
 ## [0.2.9](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.2.8...v0.2.9) (2023-03-22)
 
 
