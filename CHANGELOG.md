@@ -1,3 +1,10 @@
+## [0.2.18](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.2.17...v0.2.18) (2023-06-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dotenv to v16.1.4 ([b58c3ff](https://github.com/SmartWasteCollection/booking-microservice/commit/b58c3ffa2aa2784fe275447c7d1bd2d3bca12434))
+
 ## [0.2.17](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.2.16...v0.2.17) (2023-05-31)
 
 
