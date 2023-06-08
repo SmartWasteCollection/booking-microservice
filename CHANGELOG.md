@@ -1,3 +1,10 @@
+## [0.2.19](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.2.18...v0.2.19) (2023-06-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency mongoose to v6.11.2 ([69dba09](https://github.com/SmartWasteCollection/booking-microservice/commit/69dba09f77d5054af812a32e4942b964de97d8c3))
+
 ## [0.2.18](https://github.com/SmartWasteCollection/booking-microservice/compare/v0.2.17...v0.2.18) (2023-06-04)
 
 
